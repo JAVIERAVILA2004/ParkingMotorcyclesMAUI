@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ParkingMotorcycles.Parking"
+             Title="Parking"
+             Background="#D3D3D3">
+
+    <Grid Padding="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- Espacios de estacionamiento izquierdos -->
+        <VerticalStackLayout Grid.Column="0" Spacing="10">
+            <BoxView HeightRequest="5" BackgroundColor="Black"/>
+            <Button Text="1" x:Name="btnP1" TextColor="Black" CommandParameter="1" BackgroundColor="Transparent" WidthRequest="110" HeightRequest="60" CornerRadius="10" Clicked="AbrirModal"/>
+            <BoxView HeightRequest="5" BackgroundColor="Black"/>
+            <Button Text="2" x:Name="btnP2" TextColor="Black" CommandParameter="2" BackgroundColor="Transparent" WidthRequest="110" HeightRequest="60" CornerRadius="10" Clicked="AbrirModal"/>
+            <BoxView HeightRequest="5" BackgroundColor="Black"/>
+            <Button Text="3" x:Name="btnP3" TextColor="Black" CommandParameter="3" BackgroundColor="Transparent" WidthRequest="110" HeightRequest="60" CornerRadius="10" Clicked="AbrirModal"/>
+            <BoxView HeightRequest="5" BackgroundColor="Black"/>
+            <Button Text="4" x:Name="btnP4" TextColor="Black" CommandParameter="4" BackgroundColor="Transparent" WidthRequest="110" HeightRequest="60" CornerRadius="10" Clicked="AbrirModal"/>
+            <BoxView HeightRequest="5" BackgroundColor="Black"/>
+            <Button Text="5" x:Name="btnP5" TextColor="Black" CommandParameter="5" BackgroundColor="Transparent" WidthRequest="110" HeightRequest="60" CornerRadius="10" Clicked="AbrirModal"/>
+            <BoxView HeightRequest="5" BackgroundColor="Black"/>
+            <Button Text="6" x:Name="btnP6" TextColor="Black" CommandParameter="6" BackgroundColor="Transparent" WidthRequest="110" HeightRequest="60" CornerRadius="10" Clicked="AbrirModal"/>
+            <BoxView HeightRequest="5" BackgroundColor="Black"/>
+            <Button Text="7" x:Name="btnP7" TextColor="Black" CommandParameter="7" BackgroundColor="Transparent" WidthRequest="110" HeightRequest="60" CornerRadius="10" Clicked="AbrirModal"/>
+            <BoxView HeightRequest="5" BackgroundColor="Black"/>
+        </VerticalStackLayout>
+
+        <!-- Espacios de estacionamiento derechos -->
+        <VerticalStackLayout Grid.Column="2" Spacing="10">
+            <BoxView HeightRequest="5" BackgroundColor="Black"/>
+            <Button Text="8" x:Name="btnP8" TextColor="Black" CommandParameter="8" BackgroundColor="Transparent" WidthRequest="110" HeightRequest="60" CornerRadius="10" Clicked="AbrirModal"/>
+            <BoxView HeightRequest="5" BackgroundColor="Black"/>
+            <Button Text="9" x:Name="btnP9" TextColor="Black" CommandParameter="9" BackgroundColor="Transparent" WidthRequest="110" HeightRequest="60" CornerRadius="10" Clicked="AbrirModal"/>
+            <BoxView HeightRequest="5" BackgroundColor="Black"/>
+            <Button Text="10" x:Name="btnP10" TextColor="Black" CommandParameter="10" BackgroundColor="Transparent" WidthRequest="110" HeightRequest="60" CornerRadius="10" Clicked="AbrirModal"/>
+            <BoxView HeightRequest="5" BackgroundColor="Black"/>
+            <Button Text="11" x:Name="btnP11" TextColor="Black" CommandParameter="11" BackgroundColor="Transparent" WidthRequest="110" HeightRequest="60" CornerRadius="10" Clicked="AbrirModal"/>
+            <BoxView HeightRequest="5" BackgroundColor="Black"/>
+            <Button Text="12" x:Name="btnP12" TextColor="Black" CommandParameter="12" BackgroundColor="Transparent" WidthRequest="110" HeightRequest="60" CornerRadius="10" Clicked="AbrirModal"/>
+            <BoxView HeightRequest="5" BackgroundColor="Black"/>
+            <Button Text="13" x:Name="btnP13" TextColor="Black" CommandParameter="13" BackgroundColor="Transparent" WidthRequest="110" HeightRequest="60" CornerRadius="10" Clicked="AbrirModal"/>
+            <BoxView HeightRequest="5" BackgroundColor="Black"/>
+            <Button Text="14" x:Name="btnP14" TextColor="Black" CommandParameter="14" BackgroundColor="Transparent" WidthRequest="110" HeightRequest="60" CornerRadius="10" Clicked="AbrirModal"/>
+            <BoxView HeightRequest="5" BackgroundColor="Black"/>
+        </VerticalStackLayout>
+
+        <!-- Modal con fondo completamente opaco -->
+        <Grid x:Name="ModalView"
+      IsVisible="False"
+      Grid.ColumnSpan="3"
+      Grid.RowSpan="2"
+      BackgroundColor="#000000AA"
+      HorizontalOptions="FillAndExpand"
+      VerticalOptions="FillAndExpand">
+
+            <Border StrokeThickness="2"
+    Stroke="#E0E0E0"
+    BackgroundColor="White"
+    Padding="20"
+    WidthRequest="320"
+    HeightRequest="460"
+    HorizontalOptions="Center"
+    VerticalOptions="Center"
+    StrokeShape="RoundRectangle 15">
+                <!-- Bordes redondeados -->
+
+                <VerticalStackLayout Spacing="12">
+
+                    <!-- Título de la Modal -->
+                    <Label x:Name="lblTitulo"
+                   FontSize="20"
+                   FontAttributes="Bold"
+                   HorizontalTextAlignment="Center"
+                   TextColor="#333"
+                   Margin="0,5,0,10"/>
+
+                    <!-- Label oculto para parking -->
+                    <Label x:Name="lblparking"
+                   FontSize="16"
+                   FontAttributes="Bold"
+                   TextColor="#555"
+                   IsVisible="False"/>
+
+                    <!-- Campo para Placa -->
+                    <Border StrokeThickness="1"
+                    Stroke="#DDD"
+                    Padding="5"
+                    StrokeShape="RoundRectangle 8">
+                        <Entry x:Name="txtplaca"
+                       Placeholder="Ingrese la placa del vehículo"
+                       FontSize="14"
+                       BackgroundColor="Transparent"
+                       TextColor="Black"
+                       Text="{Binding Placa}"/>
+                    </Border>
+
+                    <!-- Campo para Marca -->
+                    <Border StrokeThickness="1"
+                    Stroke="#DDD"
+                    Padding="5"
+                    StrokeShape="RoundRectangle 8">
+                        <Entry x:Name="txtMarca"
+                       Placeholder="Ingrese la marca del vehículo"
+                       FontSize="14"
+                       BackgroundColor="Transparent"
+                       TextColor="Black"
+                               Text="{Binding Marca}"/>
+                    </Border>
+
+                    <!-- Campo para Nombre del Propietario -->
+                    <Border StrokeThickness="1"
+                    Stroke="#DDD"
+                    Padding="5"
+                    StrokeShape="RoundRectangle 8">
+                        <Entry x:Name="txtNombre"
+                       Placeholder="Ingrese el nombre del propietario"
+                       FontSize="14"
+                       BackgroundColor="Transparent"
+                       TextColor="Black"
+                               Text="{Binding Propietario}"/>
+                    </Border>
+
+                    <!-- Botón Registrar -->
+                    <Button Text="Registrar"
+                     x:Name="btnRegistar"
+                    Clicked="RegistrarVehiculo"
+                    BackgroundColor="#4CAF50"
+                    TextColor="White"
+                    CornerRadius="10"
+                    HeightRequest="45"
+                    FontAttributes="Bold"
+                            />
+
+                    <!-- Botón Cerrar -->
+                    <Button Text="Cerrar"
+                    Clicked="CerrarModal"
+                    BackgroundColor="#D32F2F"
+                    TextColor="White"
+                    CornerRadius="10"
+                    HeightRequest="40"
+                    FontAttributes="Bold"/>
+
+                    <Button Text="terminar"
+                     x:Name="btnsalida"
+                    Clicked="btnsalida_Clicked"
+                    BackgroundColor="#D32F2F"
+                    TextColor="White"
+                    CornerRadius="10"
+                    HeightRequest="40"
+                    FontAttributes="Bold"
+                    IsVisible="False"/>
+
+                </VerticalStackLayout>
+
+            </Border>
+
+        </Grid>
+
+    </Grid>
+
+</ContentPage>
+
+
+
+
