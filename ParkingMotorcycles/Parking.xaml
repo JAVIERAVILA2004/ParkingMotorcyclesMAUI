@@ -129,6 +129,7 @@
                        TextColor="Black"
                                Text="{Binding Propietario}"/>
                     </Border>
+                    
 
                     <!-- Botón Registrar -->
                     <Button Text="Registrar"

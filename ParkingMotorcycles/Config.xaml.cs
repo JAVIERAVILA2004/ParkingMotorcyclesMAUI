@@ -16,17 +16,20 @@ public partial class Config : ContentPage
         var config = await ConfigTarifaJson.ListarConfiguracionTarifas();
         PrecioMinuto.Text = config.precioporMinuto.ToString();
         PrecioHora.Text = config.precioporHora.ToString();
+        CobroMinimo.Text = config.cobroMinimo.ToString();
     }
 
     private async void GuardarConfiguracion(object sender, EventArgs e)
     {
         if (decimal.TryParse(PrecioMinuto.Text, out decimal precioMinuto) &&
-            decimal.TryParse(PrecioHora.Text, out decimal precioHora))
+            decimal.TryParse(PrecioHora.Text, out decimal precioHora) &&
+            decimal.TryParse(CobroMinimo.Text, out decimal cobroMinimo))
         {
             ConfigTarifa config = new ConfigTarifa
             {
                 precioporMinuto = precioMinuto,
-                precioporHora = precioHora
+                precioporHora = precioHora,
+                cobroMinimo = cobroMinimo
             };
 
             await ConfigTarifaJson.GuardarConfiguracionTarifas(config);

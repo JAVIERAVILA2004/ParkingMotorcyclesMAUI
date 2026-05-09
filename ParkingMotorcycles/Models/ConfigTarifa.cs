@@ -11,6 +11,8 @@ namespace ParkingMotorcycles.Models
 
         public decimal precioporMinuto { get; set; }
         public decimal precioporHora { get; set; }
+        public decimal cobroMinimo { get; set; }
+
 
     }
 }

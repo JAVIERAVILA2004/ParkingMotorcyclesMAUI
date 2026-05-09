@@ -13,7 +13,7 @@ namespace ParkingMotorcycles.Json
         public static async Task registrarFinalizado(List<Estacionamiento> estacionamientos)
         {
             Plataforma oPlataforma = new Plataforma();
-            string path = oPlataforma.obtenerpath("ReportesFinalizados.json");
+            string path = oPlataforma.obtenerpath("ReportesFinalizados2.json");
             string json = JsonSerializer.Serialize(estacionamientos, new JsonSerializerOptions { WriteIndented = true });
             await File.WriteAllTextAsync(path, json);
         }
@@ -21,7 +21,7 @@ namespace ParkingMotorcycles.Json
         public static async Task<List<Estacionamiento>> FinalizadoLista()
         {
             Plataforma oPlataforma = new Plataforma();
-            string path = oPlataforma.obtenerpath("ReportesFinalizados.json");
+            string path = oPlataforma.obtenerpath("ReportesFinalizados2.json");
             if (!File.Exists(path))
             {
                 return new List<Estacionamiento>();
