@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ParkingMotorcycles.Reportes"
+             Title="Reportes">
+    <ScrollView>
+        <Grid Padding="15" RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto">
+            <CollectionView x:Name="colllectionVIewGrupos" Grid.Row="7">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <HorizontalStackLayout Padding="10" Spacing="20" VerticalOptions="Center">
+                            <VerticalStackLayout>
+                                <Label Text="{Binding Propietario}" FontAttributes="Bold"/>
+                                <Label Text="{Binding Placa}"/>
+                                <Label Text="{Binding Marca}"/>
+                                <Label Text="{Binding idEspacio}"/>
+                                <Label Text="{Binding hora_Entrada}"/>
+                                <Label Text="{Binding hora_Salida}"/>
+                                <Label Text="{Binding Estado}"/>
+                            </VerticalStackLayout>
+
+                            <!--<Button x:Name="btneliminar" Text="Eliminar" BackgroundColor="Red" TextColor="White" Clicked="btneliminar_Clicked" CommandParameter="{Binding idEspacio}"/>-->
+                        </HorizontalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+    </ScrollView>
+</ContentPage>
