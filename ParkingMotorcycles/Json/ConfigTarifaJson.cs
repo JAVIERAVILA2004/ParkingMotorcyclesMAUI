@@ -33,31 +33,27 @@ namespace ParkingMotorcycles.Json
             return new ConfigTarifa(); 
         }
 
-        private async Task<decimal> CalcularPago(DateTime horaEntrada, DateTime horaSalida)
+        public static async Task<decimal> CalcularPago(DateTime horaEntrada, DateTime horaSalida)
         {
-            var config = await ConfigTarifaJson.ListarConfiguracionTarifas();
+            var config = await ListarConfiguracionTarifas();
 
-            // Calculamos la diferencia de tiempo
             TimeSpan tiempoEstacionado = horaSalida - horaEntrada;
 
-            // Convertimos a minutos y horas
             int minutosTotales = (int)tiempoEstacionado.TotalMinutes;
-            int horasTotales = (int)tiempoEstacionado.TotalHours;
 
-            decimal totalPagar = 0;
-
-            // Si el tiempo es menor a una hora, se cobra por minuto
-            if (horasTotales == 0)
+            if (minutosTotales < 60)
             {
-                totalPagar = minutosTotales * config.precioporMinuto    ;
-            }
-            else
-            {
-                // Se cobra las horas completas + los minutos restantes si los hay
-                totalPagar = (horasTotales * config.precioporHora) + ((minutosTotales % 60) * config.precioporMinuto);
+                return config.cobroMinimo;
             }
 
-            return totalPagar;
+            decimal total = config.precioporHora;
+
+
+            int minutosExtra = minutosTotales - 60;
+
+            total += minutosExtra * config.precioporMinuto;
+
+            return total;
         }
 
 

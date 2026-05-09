@@ -12,6 +12,9 @@
         <Label Text="Precio por Hora ($):" FontSize="18"/>
         <Entry x:Name="PrecioHora" Keyboard="Numeric" Placeholder="Ingrese el precio por hora"/>
 
+        <Label Text="Cobro mínimo ($):" FontSize="18"/>
+        <Entry x:Name="CobroMinimo" Keyboard="Numeric" Placeholder="Ingrese el cobro mínimo"/>
+
         <Button Text="Guardar Configuración" Clicked="GuardarConfiguracion" BackgroundColor="#6750A4" TextColor="White"/>
 
         <Button Text="Volver" Clicked="Volver" BackgroundColor="Gray" TextColor="White"/>

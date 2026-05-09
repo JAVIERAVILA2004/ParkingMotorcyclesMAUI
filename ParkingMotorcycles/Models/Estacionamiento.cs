@@ -14,6 +14,7 @@ namespace ParkingMotorcycles.Models
         public DateTime? hora_Salida { get; set; }
         public int idEspacio { get; set; }
         public string? Estado { get; set; }
+        public decimal TotalPagado { get; set; }
         public int idVehiculo { get; set; }
     }
 }

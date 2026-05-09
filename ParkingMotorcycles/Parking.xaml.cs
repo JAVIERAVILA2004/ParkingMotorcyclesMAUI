@@ -1,4 +1,4 @@
-using ParkingMotorcycles.Json;
+ï»¿using ParkingMotorcycles.Json;
 using ParkingMotorcycles.Models;
 using System.Data;
 using System.Threading.Tasks;
@@ -25,7 +25,7 @@ public partial class Parking : ContentPage
             string espacio = i.ToString();
             var btn = this.FindByName<Button>($"btnP{espacio}");
 
-            // Guardamos el número original en AutomationId
+            // Guardamos el nÃºmero original en AutomationId
             btn.AutomationId = espacio;
 
             if (estacionamientos.Any(e => e.idEspacio == i && e.Estado == "Ocupado"))
@@ -51,7 +51,7 @@ public partial class Parking : ContentPage
         espacioSeleccionado = (Button)sender;
         string numeroEspacio = espacioSeleccionado.CommandParameter.ToString();
 
-        lblTitulo.Text = $"Registrar vehículo en espacio {numeroEspacio}";
+        lblTitulo.Text = $"Registrar vehÃ­culo en espacio {numeroEspacio}";
         lblparking.Text = numeroEspacio;
 
         // Buscamos el estado del espacio
@@ -77,7 +77,7 @@ public partial class Parking : ContentPage
                 txtNombre.Text = vehiculo.Propietario;
             }
 
-            await DisplayAlert("Espacio ocupado", "Este espacio ya tiene un vehículo registrado.", "OK");
+            await DisplayAlert("Espacio ocupado", "Este espacio ya tiene un vehÃ­culo registrado.", "OK");
         }
         else
         {
@@ -123,6 +123,7 @@ public partial class Parking : ContentPage
             hora_Entrada = DateTime.Now,
             idVehiculo = oVehiculo.idVehiculo,
             Estado = "Ocupado"
+
         };
 
         estacionamientosExistentes.Add(estacionamiento);
@@ -132,7 +133,7 @@ public partial class Parking : ContentPage
         espacioSeleccionado.BackgroundColor = Colors.Red;
         estadoEspacios[espacioSeleccionado.AutomationId] = true;
 
-        await DisplayAlert("Ingreso Exitoso", $"Vehículo {oVehiculo.Placa} registrado correctamente.", "OK");
+        await DisplayAlert("Ingreso Exitoso", $"VehÃ­culo {oVehiculo.Placa} registrado correctamente.", "OK");
         ModalView.IsVisible = false;
     }
 
@@ -150,16 +151,19 @@ public partial class Parking : ContentPage
                 estacionamiento.hora_Salida = DateTime.Now;
                 estacionamiento.Estado = "Finalizado";
 
-                TimeSpan tiempoEstacionado = estacionamiento.hora_Salida - estacionamiento.hora_Entrada;
+                decimal totalPagar = await ConfigTarifaJson.CalcularPago(
+                   estacionamiento.hora_Entrada,
+                   estacionamiento.hora_Salida.Value
+               );
 
-                var config = await ConfigTarifaJson.ListarConfiguracionTarifas();
-                decimal precioMinuto = config?.precioporMinuto ?? 0;
-                decimal precioHora = config?.precioporHora ?? 0;
+                // ðŸ”¥ GUARDAR TOTAL EN EL MODELO
+                estacionamiento.TotalPagado = totalPagar;
 
-                decimal totalPagar = CalcularPago(tiempoEstacionado, precioMinuto, precioHora);
-
-                await DisplayAlert("Salida Exitosa", $"El vehículo ha salido del estacionamiento. Total a pagar: ${totalPagar:F2}", "OK");
-
+                await DisplayAlert(
+                    "Salida Exitosa",
+                    $"El vehÃ­culo ha salido del estacionamiento.\nTotal a pagar: ${totalPagar:F2}",
+                    "OK"
+                );
                 // Registrar en reportes finalizados
                 var reportesExistentes = await ReportesFinalizados.FinalizadoLista();
                 reportesExistentes.Add(estacionamiento);
@@ -175,27 +179,14 @@ public partial class Parking : ContentPage
             }
             else
             {
-                await DisplayAlert("Error", "No se encontró el espacio seleccionado.", "OK");
+                await DisplayAlert("Error", "No se encontrÃ³ el espacio seleccionado.", "OK");
             }
         }
         else
         {
-            await DisplayAlert("Error", "Número de espacio inválido.", "OK");
+            await DisplayAlert("Error", "NÃºmero de espacio invÃ¡lido.", "OK");
         }
     }
-
-    // Función para calcular el costo del estacionamiento
-    private decimal CalcularPago(TimeSpan tiempo, decimal precioMinuto, decimal precioHora)
-    {
-        int minutos = (int)tiempo.TotalMinutes;
-        int horas = minutos / 60;
-        int minutosRestantes = minutos % 60;
-
-        decimal costo = (horas * precioHora) + (minutosRestantes * precioMinuto);
-        return costo;
-    }
-
-
 
 
 }
